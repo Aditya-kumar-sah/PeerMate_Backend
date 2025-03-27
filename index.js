@@ -22,6 +22,9 @@ app.use("/api/v1/2024/task",usertaskroute)
 app.use("/api/v1/2024/roomate",roomateroute)
 app.use("/api/v1/2024/post",postroute)
 
+console.log(process.env.PORT);
+
+
 app.listen(process.env.PORT,()=>{
     console.log("Server running on PORT ",process.env.PORT);
 })
