@@ -11,12 +11,19 @@ require("dotenv").config()
 
 
 app.use(express.json())
+// app.use(cors({
+//   origin: "*", // Allow all origins
+//   methods: "*", // Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
+//   allowedHeaders: "*", // Allow all headers
+//   credentials: true // Allow cookies, authorization headers, etc.
+// }))
 app.use(cors({
-  origin: "*", // Allow all origins
-  methods: "*", // Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
-  allowedHeaders: "*", // Allow all headers
-  credentials: true // Allow cookies, authorization headers, etc.
-}))
+  origin: 'https://peermate-frontend.onrender.com', 
+  methods: "*",         
+  allowedHeaders: "*", 
+  credentials: true                            
+}));
+
 app.use(cookieParser())
 app.use('/uploads',express.static('uploads'))
 
