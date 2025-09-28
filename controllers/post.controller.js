@@ -1,16 +1,19 @@
 const post = require("../models/post.models");
+const {  uploadImage } = require("../utils/cloudinary");
 
 const createPost = async (req,res) =>{
         const User = req.user;
         try {
             const {thought} = req.body;
-            
         
-            const fileUrls = ( req.files.map((post) =>{
-                const postURL = post.filename;
-                const finalURL = `${process.env.BACKEND_URL}/uploads/`+postURL;
-                return finalURL;
-            }));
+            const fileUrls = [];
+            for (const file1 of req.files) {
+               const localFilePath = file1.path;
+               
+               const finalURL = await uploadImage(localFilePath);
+                
+               fileUrls.push(finalURL);
+            }
          
             const newPost = await post.create({
               thought,

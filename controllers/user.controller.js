@@ -1,4 +1,5 @@
 const user = require("../models/user.models");
+const { uploadImage } = require("../utils/cloudinary");
 
 const createUser = async (req,res) =>{
      const {name,email,branch,yearofpassout} = req.body;
@@ -63,13 +64,13 @@ const updateProfilePic = async (req,res) =>{
         if(!(req.file)){
             return res.status(400).json({"message":"No file uploaded!"})
         }
-        const localPath = req.file.filename;
+        const localPath = req.file.path;
 
-
-        let profilepic = `${process.env.BACKEND_URL}/uploads/${localPath}`;        
+        const finalURL = await uploadImage(localPath);
+      
 
         let updatedFields = {};
-        updatedFields.profilepic = profilepic;
+        updatedFields.profilepic = finalURL;
   
     
        

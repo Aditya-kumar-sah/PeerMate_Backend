@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express")
 const app = express()
 const cors = require("cors")
@@ -7,13 +8,13 @@ const userroute = require("./routes/user.route")
 const usertaskroute = require("./routes/task.route")
 const roomateroute = require("./routes/roomate.route")
 const postroute = require("./routes/post.route")
-require("dotenv").config()
+
 
 
 app.use(express.json())
 
 app.use(cors({
-  origin: 'https://peermate-frontend.onrender.com', 
+  origin: "https://peermate-frontend.onrender.com", 
   methods: "*",         
   allowedHeaders: "*", 
   credentials: true                            

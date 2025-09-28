@@ -1,5 +1,6 @@
 const roomate = require("../models/roomate.model");
 const { findById } = require("../models/user.models");
+const { uploadImage } = require("../utils/cloudinary");
 
 const createRoom = async (req,res) =>{
         const User = req.user;
@@ -7,11 +8,14 @@ const createRoom = async (req,res) =>{
             const { location, features, numberofroomaterequired,phonenumber } = req.body;
             
         
-            const fileUrls = ( req.files.map((room) =>{
-                const roomURL = room.filename;
-                const finalURL = `${process.env.BACKEND_URL}/uploads/`+roomURL;
-                return finalURL;
-            }));
+            const fileUrls = [];
+            for (const file1 of req.files) {
+               const localFilePath = file1.path;
+               
+               const finalURL = await uploadImage(localFilePath);
+                
+               fileUrls.push(finalURL);
+            }
          
             const newRoom = await roomate.create({
               location,
